@@ -34,12 +34,12 @@ body{position:relative}#room{z-index:1}.wincol{align-self:center}
 #floor{position:absolute;left:0;right:0;bottom:0;top:72%;z-index:0;background:repeating-linear-gradient(90deg,transparent 0 118px,rgba(42,34,51,.16) 118px 120px),#e0bd94;border-top:10px solid #b98f66;box-shadow:inset 0 3px 0 var(--ink)}
 #drawer{display:none;flex:1 0 100%;flex-wrap:wrap;gap:8px 14px;justify-content:center;align-items:center;padding-bottom:8px;border-bottom:2px dashed rgba(42,34,51,.3)}.edit #drawer{display:flex}
 .tc{display:flex;flex-direction:column;align-items:center;font-size:15px;line-height:1.1;background:#fff;border:2px solid var(--ink);border-radius:10px;padding:3px 2px;width:92px}
-.row2{display:flex;align-items:center}.pick{border:0;background:none;padding:0;cursor:pointer}.pick svg{display:block;width:42px;height:42px}
+.row2{display:flex;align-items:center}.pick{border:0;background:none;padding:0;cursor:pointer}.pick>svg{display:block;width:42px;height:42px}
 .ar{border:0;background:none;font:inherit;font-size:24px;line-height:1;cursor:pointer;padding:0 3px;color:var(--ink)}.ar:hover{color:#b57b4c}.sw{display:inline-flex;gap:3px;vertical-align:middle}.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--ink);padding:0;cursor:pointer}.dot.on{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--ink)}
 .ty{animation:ty .35s ease-in-out infinite alternate}@keyframes ty{to{transform:translateY(2px)}}
 .eat{animation:eat 2.4s ease-in-out infinite}@keyframes eat{50%{transform:translate(2px,5px)}}
 .st{transform-box:fill-box;animation:zz 2.4s ease-out infinite}
-.it svg,.slot svg{display:block;width:100%;height:100%;overflow:visible;filter:url(#sq)}
+.it>svg,.slot>svg{display:block;width:100%;height:100%;overflow:visible;filter:url(#sq)}
 .it{cursor:pointer}.edit .it{cursor:grab}.edit .it:hover{outline:2px dashed rgba(42,34,51,.3)}
 .edit .slot{outline:2px dashed rgba(42,34,51,.25);outline-offset:-6px}
 .edit .slot:hover{background:rgba(255,255,255,.45)}
@@ -73,26 +73,27 @@ body{position:relative}#room{z-index:1}.wincol{align-self:center}
 #dock input[type=range]{width:96px;accent-color:#b57b4c}
 @media (max-width:720px){#room{grid-template-columns:1fr;justify-items:center}.wincol{width:150px}#shelf{width:100%}#shaft{display:none}}
 @media (prefers-reduced-motion:reduce){.cloud,.glow,.fl,.tail,.br,.z,.notes text{animation:none}}
-#room{grid-template-columns:118px minmax(130px,210px) minmax(0,660px);width:min(100%,1100px)}
-#wallinfo{align-self:center;justify-self:end;width:108px;background:#2d3a4e;color:#9ad1ff;font-family:'Courier New',monospace;text-align:center;border:3px solid var(--ink);border-radius:8px;padding:8px 4px;box-shadow:0 0 0 5px #f0e6d6,0 0 0 8px var(--ink);position:relative;z-index:12}
-#wi-t{font-size:30px;font-weight:700;line-height:1;letter-spacing:1px}#wi-ap{font-size:13px;opacity:.8}#wi-w{font-size:13px;margin-top:6px;border-top:1px dashed rgba(154,209,255,.4);padding-top:5px}
+#room{grid-template-columns:minmax(130px,210px) minmax(0,660px);width:min(100%,980px)}
+#wallinfo{position:fixed;left:14px;top:calc(12px + env(safe-area-inset-top,0px));z-index:25;line-height:1.1;color:var(--ink);background:rgba(244,229,211,.92);border:3px solid var(--ink);border-radius:14px;padding:6px 12px;pointer-events:none}
+#wallinfo.min{background:none;border:0;padding:0;text-shadow:0 1px 0 rgba(255,255,255,.55)}#wallinfo.off{display:none}
+#wi-t{font-size:30px;font-weight:700}#wi-w{font-size:17px}
+.eye{display:none}.peek .eye{display:block}
 .mq.scroll{animation:mq 6s linear infinite}@keyframes mq{from{transform:translateX(var(--s))}to{transform:translateX(var(--w))}}
 .pur svg{animation:pur .12s linear 10}@keyframes pur{50%{transform:translateY(-1.5px)}}
-@media (max-width:1000px){#room{grid-template-columns:minmax(130px,210px) minmax(0,660px)}#wallinfo{grid-column:1;grid-row:2;justify-self:center;align-self:start;margin-top:16px}.wincol{grid-column:1;grid-row:1}#stage{grid-column:2;grid-row:1/3}}
-@media (max-width:720px){#room{grid-template-columns:1fr}.wincol,#wallinfo,#stage{grid-column:1;grid-row:auto}#stage{justify-self:stretch}}
+@media (max-width:720px){#room{grid-template-columns:1fr}.wincol,#stage{grid-column:1;grid-row:auto}#stage{justify-self:stretch}}
 </style></head>
 <body class="edit">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="sq" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence id="tb" type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="1"/><feDisplacementMap in="SourceGraphic" scale="2.5"/></filter><filter id="sq2" x="-5%" y="-10%" width="110%" height="120%"><feTurbulence id="tb2" type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="1"/><feDisplacementMap in="SourceGraphic" scale="1.6"/></filter></svg>
 <div id="floor"></div>
 <div id="room">
- <div id="wallinfo"><div id="wi-t">--:--</div><div id="wi-ap"></div><div id="wi-w">CLEAR</div></div><div class="wincol"><div class="win" id="win"><div class="sky" id="sky"></div><div class="stars" id="stars"></div><div class="sun" id="sun"></div><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div><div class="cloud c4"></div><canvas id="rain"></canvas></div><div class="sill"></div></div>
+ <div class="wincol"><div class="win" id="win"><div class="sky" id="sky"></div><div class="stars" id="stars"></div><div class="sun" id="sun"></div><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div><div class="cloud c4"></div><canvas id="rain"></canvas></div><div class="sill"></div></div>
  <div id="stage"><div id="shelf"><div class="row"></div><div class="row"></div><div class="row"></div></div><svg id="me" viewBox="0 0 240 150" aria-label="You at your desk"></svg></div>
 </div>
-<div id="dark"></div><div id="glows"></div>
+<div id="wallinfo" class="card"><div id="wi-t">--:--</div><div id="wi-w">Clear</div></div><div id="dark"></div><div id="glows"></div>
 <div id="dock">
  <div id="drawer">
   <div id="tray"></div>
-  <span>Wall <span class="sw" id="wallc"></span></span>
+  <span>Wall <span class="sw" id="wallc"></span></span><span>Info <select class="b" id="pm" aria-label="Info panel"><option value="card">Card</option><option value="min">Minimal</option><option value="off">Off</option></select> <label><input type="checkbox" id="h24"> 24h</label></span>
   <span>You: <select class="b" id="skin" aria-label="Skin tone"></select> <select class="b" id="hs" aria-label="Hair style"><option value="short">Short hair</option><option value="long">Long hair</option><option value="bun">Bun</option></select> Hair <span class="sw" id="hc"></span> Shirt <span class="sw" id="sc"></span></span>
  </div>
  <button class="b" id="edit" aria-label="Edit room" title="Edit room"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2a2233" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><path d="M4 20l1-5L16 4l4 4L9 19z"/><path d="M14 6l4 4"/></svg></button>
@@ -117,7 +118,7 @@ figure:c=>`<ellipse cx="50" cy="93" rx="27" ry="4" fill="#d9d4cc"/><rect x="37" 
 candle:(c,s)=>`<ellipse cx="50" cy="90" rx="28" ry="6" fill="#d9d4cc"/><rect x="38" y="46" width="24" height="44" rx="3" fill="${c}"/><path d="M38 58q6 8 8 0M52 54q5 6 8 0M50 46v-7" fill="none"/>${s.lit!==false?'<path class="fl" d="M50 14Q62 28 50 41Q38 28 50 14Z" fill="#f6a53a"/><path d="M50 26Q55 33 50 39Q45 33 50 26Z" fill="#ffe08a" stroke="none"/>':''}`,
 plant:c=>`<path d="M50 70Q30 50 34 24Q54 40 50 70Z" fill="#6fa76a"/><path d="M50 70Q72 54 68 28Q48 40 50 70Z" fill="#5d9a63"/><path d="M50 70Q40 40 50 10Q60 40 50 70Z" fill="#7fba72"/><path d="M30 68h40l-5 28H35z" fill="${c}"/>`,
 music:c=>`<path d="M30 40V28h40v12M76 40L86 16" fill="none"/><rect x="8" y="40" width="84" height="52" rx="8" fill="${c}"/><circle cx="30" cy="66" r="14" fill="#f7efe0"/><circle cx="70" cy="66" r="14" fill="#f7efe0"/><circle cx="30" cy="66" r="5" fill="${INK}"/><circle cx="70" cy="66" r="5" fill="${INK}"/><rect x="41" y="50" width="18" height="9" rx="2" fill="#f7efe0"/><path d="M44 80h12"/><svg x="42" y="51" width="16" height="7" viewBox="0 0 16 7"><text class="mq" y="5.5" font-size="6" font-family="monospace" fill="#2a2233" stroke="none"></text></svg><g class="notes" fill="${INK}" stroke="none"><text x="78" y="30" font-size="16">♪</text><text x="14" y="26" font-size="14">♫</text></g>`,
-cat:c=>`<g class="tail"><path d="M84 80Q98 78 94 60" fill="none" stroke-width="12"/><path d="M84 80Q98 78 94 60" fill="none" stroke="${c}" stroke-width="6"/></g><ellipse class="br" cx="52" cy="76" rx="36" ry="18" fill="${c}"/><path d="M56 62v8M66 63v8M76 67v7" fill="none"/><ellipse cx="28" cy="78" rx="15" ry="13" fill="${c}"/><path d="M15 70L17 54L28 65zM30 65L40 54L42 72z" fill="${c}"/><path d="M20 78q3 3 6 0M31 78q3 3 6 0" fill="none"/><path d="M27 83l2 2 2-2z" fill="#f4a6b7" stroke-width="2"/><text class="z" x="42" y="46" font-size="15" fill="${INK}" stroke="none">z</text><text class="z z2" x="53" y="35" font-size="11" fill="${INK}" stroke="none">z</text>`};
+cat:c=>`<g class="tail"><path d="M84 80Q98 78 94 60" fill="none" stroke-width="12"/><path d="M84 80Q98 78 94 60" fill="none" stroke="${c}" stroke-width="6"/></g><ellipse class="br" cx="52" cy="76" rx="36" ry="18" fill="${c}"/><path d="M56 62v8M66 63v8M76 67v7" fill="none"/><ellipse cx="28" cy="78" rx="15" ry="13" fill="${c}"/><path d="M15 70L17 54L28 65zM30 65L40 54L42 72z" fill="${c}"/><path d="M20 78q3 3 6 0M31 78q3 3 6 0" fill="none"/><g class="eye"><circle cx="34" cy="78" r="3.8" fill="#f7efe0"/><circle cx="34.8" cy="78" r="1.8" fill="#2a2233" stroke="none"/></g><path d="M27 83l2 2 2-2z" fill="#f4a6b7" stroke-width="2"/><text class="z" x="42" y="46" font-size="15" fill="${INK}" stroke="none">z</text><text class="z z2" x="53" y="35" font-size="11" fill="${INK}" stroke="none">z</text>`};
 const fl=(s,dy=0)=>s.lit!==false?`<g transform="translate(0 ${dy})"><path class="fl" d="M50 14Q62 28 50 41Q38 28 50 14Z" fill="#f6a53a"/><path d="M50 26Q55 33 50 39Q45 33 50 26Z" fill="#ffe08a" stroke="none"/></g>`:'';
 const VAR={
 book:[ART.book,c=>`<rect x="16" y="52" width="68" height="14" rx="2" fill="${c}"/><rect x="22" y="66" width="62" height="14" rx="2" fill="#f2e6c9"/><rect x="12" y="80" width="72" height="16" rx="2" fill="#e9c46a"/><path d="M20 59h8M28 73h8M20 88h10"/>`,c=>`<path d="M12 90L30 36L44 40L26 94z" fill="${c}"/><rect x="48" y="34" width="16" height="62" rx="2" fill="#bcd4f0"/><rect x="66" y="40" width="16" height="56" rx="2" fill="#f4c2c2"/><path d="M52 46h8M70 52h8"/>`],
@@ -215,7 +216,7 @@ function beat(s,t){const b=BEATS[bi],k=s%8,ch=b.ch[Math.floor(s/8)%4];t+=k%2?b.s
 function sched(){while(next<ctx.currentTime+.3){beat(step++,next);next+=E()}}
 function startLofi(){ia();bus.gain.cancelScheduledValues(0);bus.gain.value=1;next=ctx.currentTime+.1;timer=setInterval(sched,80)}
 function stopLofi(){clearInterval(timer);bus.gain.setTargetAtTime(0,ctx.currentTime,.12)}
-function rainSound(on){if(on){ia();if(!rg){const s=ctx.createBufferSource(),f=ctx.createBiquadFilter();s.buffer=nb;s.loop=true;f.type='bandpass';f.frequency.value=1400;f.Q.value=.4;rg=ctx.createGain();rg.gain.value=0;s.connect(f);f.connect(rg);rg.connect(ctx.destination);s.start()}rg.gain.setTargetAtTime(.1,ctx.currentTime,.4)}else if(rg)rg.gain.setTargetAtTime(0,ctx.currentTime,.3)}
+function rainSound(on){if(on){ia();if(!rg){const s=ctx.createBufferSource(),f=ctx.createBiquadFilter();s.buffer=nb;s.loop=true;f.type='bandpass';f.frequency.value=1400;f.Q.value=.4;rg=ctx.createGain();rg.gain.value=0;s.connect(f);f.connect(rg);rg.connect(ctx.destination);s.start()}rg.gain.setTargetAtTime(.03,ctx.currentTime,.4)}else if(rg)rg.gain.setTargetAtTime(0,ctx.currentTime,.3)}
 /* player */
 function setPlay(on){P.on=on;document.body.classList.toggle('playing',on);$('#pp').textContent=on?'Pause':'Play';setMarquee()}
 function halt(){if(P.on){P.mode==='file'?audio.pause():stopLofi();setPlay(false)}}
@@ -226,7 +227,7 @@ $('#pp').onclick=toggle;
 $('#vol').oninput=e=>{vol=+e.target.value;audio.volume=vol;if(master)master.gain.value=vol};
 $('#add').onclick=()=>$('#file').click();
 $('#file').onchange=e=>{const f=e.target.files[0];if(!f)return;halt();P.mode='file';audio.volume=vol;audio.src=URL.createObjectURL(f);$('#title').textContent=f.name;audio.play().then(()=>setPlay(true)).catch(fail)};
-$('#lofi').onclick=()=>{if(P.mode==='lofi'&&P.on){bi=(bi+1)%BEATS.length;step=Math.ceil(step/8)*8}else if(P.mode!=='lofi'){halt();P.mode='lofi'}$('#title').textContent='Lofi · '+BEATS[bi].n;if(!P.on)toggle()};
+$('#lofi').onclick=()=>{if(P.mode==='lofi'&&P.on){bi=(bi+1)%BEATS.length;step=Math.ceil(step/8)*8}else if(P.mode!=='lofi'){halt();P.mode='lofi'}$('#title').textContent='Lofi · '+BEATS[bi].n;if(!P.on)toggle();else setMarquee()};
 /* controls */
 function syncUI(){document.body.classList.toggle('edit',S.edit);$('#edit').classList.toggle('armed',S.edit);$('#wx').textContent='Weather: '+S.wx;document.documentElement.style.setProperty('--wall',S.wall)}
 $('#edit').onclick=()=>{S.edit=!S.edit;syncUI();save();renderShelf()};
@@ -260,12 +261,16 @@ function me(){const a=S.me,m=a.mode,sk=a.skin,hr=a.hair,sh=a.shirt,
  return `<g stroke="#2a2233" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">${desk}${lamp}${lap}${mug}<g transform="translate(-14 0)">${A}</g></g>`}
 function renderMe(){$('#me').innerHTML=me();document.querySelectorAll('.act').forEach(b=>b.classList.toggle('armed',b.dataset.m===S.me.mode))}
 /* wall panel, radio marquee, cat */
-function wallUpdate(h,w){const H=Math.floor(h)%24;$('#wi-t').textContent=`${H%12||12}:${String(Math.floor((h%1)*60)).padStart(2,'0')}`;$('#wi-ap').textContent=H<12?'AM':'PM';$('#wi-w').textContent=({clear:'CLEAR',cloudy:'CLOUDY',rain:'RAIN'}[w]||'')+(S.wx==='auto'&&liveT!=null?' '+Math.round(liveT)+'°C':'')}
-function setMarquee(){const t=P.on?(P.mode==='file'?$('#title').textContent:'Lofi'):'· · ·';document.querySelectorAll('.mq').forEach(el=>{const w=+el.parentNode.getAttribute('width'),len=t.length*(+el.getAttribute('font-size'))*.6;el.textContent=t;if(len>w-2){el.setAttribute('text-anchor','start');el.setAttribute('x',0);el.classList.add('scroll');el.style.setProperty('--s',w+'px');el.style.setProperty('--w',-len+'px');el.style.animationDuration=(len/14+3)+'s'}else{el.setAttribute('text-anchor','middle');el.setAttribute('x',w/2);el.classList.remove('scroll')}})}
-function meow(el){ia();const t=ctx.currentTime,o=ctx.createOscillator(),f=ctx.createBiquadFilter(),a=ctx.createGain();
+function wallUpdate(h,w){const H=Math.floor(h)%24,m=String(Math.floor((h%1)*60)).padStart(2,'0');$('#wi-t').textContent=S.h24?`${String(H).padStart(2,'0')}:${m}`:`${H%12||12}:${m} ${H<12?'AM':'PM'}`;$('#wi-w').textContent=({clear:'Clear',cloudy:'Cloudy',rain:'Rain'}[w]||'')+(S.wx==='auto'&&liveT!=null?' · '+Math.round(liveT)+'°C':'');$('#wallinfo').className=S.panel||'card'}
+$('#pm').value=S.panel||'card';$('#pm').oninput=e=>{S.panel=e.target.value;save();apply()};
+$('#h24').checked=!!S.h24;$('#h24').onchange=e=>{S.h24=e.target.checked;save();apply()};
+function setMarquee(){const t=P.on?(P.mode==='file'?$('#title').textContent:BEATS[bi].n):'· · ·';document.querySelectorAll('.mq').forEach(el=>{const w=+el.parentNode.getAttribute('width'),len=t.length*(+el.getAttribute('font-size'))*.6;el.textContent=t;if(len>w-2){el.setAttribute('text-anchor','start');el.setAttribute('x',0);el.classList.add('scroll');el.style.setProperty('--s',w+'px');el.style.setProperty('--w',-len+'px');el.style.animationDuration=(len/14+3)+'s'}else{el.setAttribute('text-anchor','middle');el.setAttribute('x',w/2);el.classList.remove('scroll')}})}
+function synthMeow(){ia();const t=ctx.currentTime,o=ctx.createOscillator(),f=ctx.createBiquadFilter(),a=ctx.createGain();
  if(Math.random()<.5){o.type='sawtooth';o.frequency.setValueAtTime(420,t);o.frequency.linearRampToValueAtTime(760,t+.18);o.frequency.linearRampToValueAtTime(480,t+.6);f.type='bandpass';f.Q.value=3;f.frequency.setValueAtTime(900,t);f.frequency.linearRampToValueAtTime(1800,t+.2);f.frequency.linearRampToValueAtTime(900,t+.6);a.gain.setValueAtTime(.0001,t);a.gain.linearRampToValueAtTime(.18,t+.08);a.gain.linearRampToValueAtTime(.0001,t+.65);o.connect(f);f.connect(a);a.connect(master);o.start(t);o.stop(t+.7)}
- else{o.type='sawtooth';o.frequency.value=48;f.type='lowpass';f.frequency.value=260;const l=ctx.createOscillator(),lg=ctx.createGain(),e=ctx.createGain();l.frequency.value=24;lg.gain.value=.1;a.gain.value=.1;l.connect(lg);lg.connect(a.gain);e.gain.setValueAtTime(.0001,t);e.gain.linearRampToValueAtTime(1,t+.15);e.gain.linearRampToValueAtTime(.0001,t+1.6);o.connect(f);f.connect(a);a.connect(e);e.connect(master);o.start(t);l.start(t);o.stop(t+1.7);l.stop(t+1.7)}
- if(el){el.classList.add('pur');setTimeout(()=>el.classList.remove('pur'),1400)}}
+ else{o.type='sawtooth';o.frequency.value=48;f.type='lowpass';f.frequency.value=260;const l=ctx.createOscillator(),lg=ctx.createGain(),e=ctx.createGain();l.frequency.value=24;lg.gain.value=.1;a.gain.value=.1;l.connect(lg);lg.connect(a.gain);e.gain.setValueAtTime(.0001,t);e.gain.linearRampToValueAtTime(1,t+.15);e.gain.linearRampToValueAtTime(.0001,t+1.6);o.connect(f);f.connect(a);a.connect(e);e.connect(master);o.start(t);l.start(t);o.stop(t+1.7);l.stop(t+1.7)}}
+const CATS=[1,2,3,4,5].map(n=>`sounds/cat${n}.mp3`);
+function meow(el){const a=new Audio(CATS[Math.floor(Math.random()*CATS.length)]);a.volume=Math.min(1,vol);a.play().catch(synthMeow);
+ if(el){el.classList.add('pur');if(Math.random()<.4)el.classList.add('peek');setTimeout(()=>el.classList.remove('pur','peek'),1800)}}
 /* first-visit lofi: starts on the first click outside the control bar */
 let userHalted=false;
 $('#pp').addEventListener('click',()=>{if(P.on)userHalted=true},true);
